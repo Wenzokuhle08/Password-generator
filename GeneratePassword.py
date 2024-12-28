@@ -16,16 +16,34 @@ def custom_password():
     
     total_chars = lowercase_alphabets + uppercase_alphabets + special_characters + digits
     
+    try: 
+        password_length= int(input("Enter the length of your password: "))
+        if password_length <= 3:
+            print("Password must be at least 4 characters long for complexity.")
+            return None
     
-    password_length= int(input("Enter the length of your password: "))
+    # if password_length <= 0:
+    #     return password_length
     
-    if password_length <= 0:
-        return password_length
+        random_password = "".join(random.choices(total_chars, k=password_length))
+        print(f"Your password is, {random_password}")
+        return random_password
+    except ValueError:
+        print("Invalid input. Enter a numeric value")
     
-    random_password = "".join(random.choices(total_chars, k=password_length))
-    print(f"Your password is, {random_password}")
-    
-   
+#   try:
+#         password_length = int(input("Enter the length of your password: "))
+#         if password_length < 4:
+#             print("Password length must be at least 4 for complexity.")
+#             return None
+
+#         # Generate the password
+#         random_password = "".join(random.choices(total_chars, k=password_length))
+#         print(f"Your generated password is: {random_password}")
+#         return random_password
+#     except ValueError:
+#         print("Invalid input. Please enter a numeric value.")
+#         return None 
     
     
     
