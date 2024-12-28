@@ -1,5 +1,5 @@
 import random
-# import OS 
+import os
 
 
 def display_menu():
@@ -22,33 +22,64 @@ def custom_password():
             print("Password must be at least 4 characters long for complexity.")
             return None
     
-    # if password_length <= 0:
-    #     return password_length
     
         random_password = "".join(random.choices(total_chars, k=password_length))
         print(f"Your password is, {random_password}")
         return random_password
     except ValueError:
         print("Invalid input. Enter a numeric value")
-    
-#   try:
-#         password_length = int(input("Enter the length of your password: "))
-#         if password_length < 4:
-#             print("Password length must be at least 4 for complexity.")
-#             return None
 
-#         # Generate the password
-#         random_password = "".join(random.choices(total_chars, k=password_length))
-#         print(f"Your generated password is: {random_password}")
-#         return random_password
-#     except ValueError:
-#         print("Invalid input. Please enter a numeric value.")
-#         return None 
-    
-    
-    
-    
+def saved_password(password):
+    try:
+        with open("passwords.txt", "a") as file:
+            file.write(f"{password}\n")
+        print("Password has been saved in 'passwords.txt'.")
+    except Exception as e:
+        print(f"An error occurred while trying to save your password: {e}")
+
+def view_saved_passwords():
+    try:
+        if os.path.exists("passwords.txt"):
+            with open("passwords.txt", "r") as file:
+                passwords = file.readlines()
+                if passwords:
+                    print("\nStored Passwords:")
+                    for index, password in enumerate(passwords, start=1):
+                        print(f"{index}. {password.strip()}")
+                else: 
+                    print("\nNo passwords have been saved")
+        else:
+            print("\nNo passwords have been saved")
+    except Exception as e:
+        print(f"An error occurred while trying to retrieve your saved  passwords: {e}")
+        
+def validate_choice(choice):
+    return choice in ["1", "2", "3"]
+                        
+def main():
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ").strip()
+        
+        if validate_choice(choice):
+            if choice == "1":
+                password = custom_password()
+                if password:
+                    save = input("Would you like to save your password? (yes/no): ").strip().lower()
+                    if save == "yes":
+                        saved_password(password)
+            elif choice == "2":
+                view_saved_passwords()
+            elif choice == "3":
+                print("Thank you for using the Password Generator!")
+                break
+        else: 
+            print("Wrong choice. Please try again.")
+            
+
+
+
 if __name__ == "__main__":
-    display_menu()
-    custom_password()
+    main()
     # display_menu()
+    # custom_password()
