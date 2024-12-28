@@ -1,5 +1,13 @@
 import random
+# import OS 
 
+
+def display_menu():
+    print("\nWelcome to the Password Generator!")
+    print("1. Generate a password")
+    print("2. View saved passwords")
+    print("3. Quit")
+    
 def custom_password():
     lowercase_alphabets = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     uppercase_alphabets = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -23,4 +31,6 @@ def custom_password():
     
     
 if __name__ == "__main__":
+    display_menu()
     custom_password()
+    # display_menu()
